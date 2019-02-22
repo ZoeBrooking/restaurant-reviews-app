@@ -1,4 +1,4 @@
-const CACHE_NAME = 'restaurant-reviews-cache-v1';
+const staticCacheName = 'restaurant-reviews-cache-v1';
 const filesToCache = [
 	'/',
 	'/css/styles.css',
@@ -22,7 +22,7 @@ const filesToCache = [
 
 self.addEventListener('install', function(event) {
 	event.waitUntil(
-		caches.open(CACHE_NAME)
+		caches.open(staticCacheName)
 			.then(function(cache) {
 				return cache.addAll(filesToCache);
 			})
@@ -35,10 +35,9 @@ self.addEventListener('activate', function(event) {
 			.then(function(cacheNames) {
 				return Promise.all(
 					cacheNames.filter(function(cacheName) {
-						return cacheName.startsWith('restaurant-') &&
-							cacheName != staticCacheName;
+						return cacheName.startsWith('restaurant-') && cacheName != staticCacheName;
 				}).map(function(cacheName) {
-					return cache.delete(cacheName);
+					return caches.delete(cacheName);
 				})
 			);
 		})
