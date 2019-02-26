@@ -4,6 +4,10 @@ let restaurants,
 var newMap
 var markers = []
 
+/**
+ * Checks whether browser is capable of running service worker. Returns error
+ * if not.
+ */
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
   .register('/sw.js')
